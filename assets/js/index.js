@@ -1,5 +1,15 @@
 $(function () {
     getUserInfo();
+    // 3、用户点击退出 
+    $("#btn-back").on("click", function () {
+        layer.confirm('确认退出?', { icon: 3, title: '提示' }, function (index) {
+            // 清除token
+            localStorage.removeItem("token");
+            // 跳转到登录页面
+            location.href = "/login.html";
+            layer.close(index);
+        });
+    })
 })
 var layer = layui.layer;
 // 1、获取用户信息
@@ -22,9 +32,9 @@ function renderUserInfo(data) {
     $("#welcome").html("欢迎&nbsp;&nbsp;" + name);
     // 如果用户有头像 就渲染头像
     if (data.user_pic) {
-        $(".layui-nav-img").prop("src",data.user_pic).show();
+        $(".layui-nav-img").prop("src", data.user_pic).show();
         $(".text-avatar").hide();
-    // 如果用户没有头像 就将用户名的第一个字的大写 作为头像
+        // 如果用户没有头像 就将用户名的第一个字的大写 作为头像
     } else {
         $(".text-avatar").html(name[0].toUpperCase()).show();
         $(".layui-nav-img").hide();
